@@ -1,56 +1,74 @@
 // The script generates a line chart that shows how interventions for
 // Neglected Tropical Diseases have changed over time
 
-var svg = d3.select("svg"),
-    margin = {top: 20, right: 20, bottom: 30, left: 50},
-    width = +svg.attr("width") - margin.left - margin.right,
-    height = +svg.attr("height") - margin.top - margin.bottom,
-    g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// Set chart size
+let line_margin = {
+        top: 20,
+        right: 20,
+        bottom: 30,
+        left: 80
+    },
+    line_width = 960 - line_margin.left - line_margin.right,
+    line_height = 500 - line_margin.top - line_margin.bottom;
 
-var parseTime = d3.timeParse("%d-%b-%y");
+// First we'll define our axes
+let line_x = d3.scaleLinear().range([0, line_width]);
+let line_y = d3.scaleLinear().range([line_height, 0]);
 
-var x = d3.scaleTime()
-    .rangeRound([0, width]);
+// Make an SVG to house the chart
+let line_svg = d3.select("#line")
+    .append("svg")
+    .attr("width", line_width + line_margin.left + line_margin.right)
+    .attr("height", line_height + line_margin.top + line_margin.bottom);
 
-var y = d3.scaleLinear()
-    .rangeRound([height, 0]);
+// Make a group to contain all the chart bits
+let line_g = line_svg.append("g")
+    .attr("transform", `translate(${line_margin.left}, ${line_margin.top})`);
 
-var line = d3.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
+// Calculate the x and y coords of each point
+let line = d3.line()
+    .x(function (d) {
+        return line_x(d.year);
+    })
+    .y(function (d) {
+        return line_y(d.total);
+    });
 
-d3.tsv("data.tsv").then(function(d) {
-  d.date = parseTime(d.date);
-  d.close = +d.close;
-  return d;
-}, function(error, data) {
-  if (error) throw error;
+d3.csv("data/line.csv").then(function (data) { // Load the data, then...
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain(d3.extent(data, function(d) { return d.close; }));
+    // Set the x axis domain
+    line_x.domain([d3.min(data, (d) => d.year),
+              d3.max(data, (d) => d.year)])
+        .nice();
 
-  g.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x))
-    .select(".domain")
-      .remove();
+    // Set the y axis domain
+    line_y.domain([d3.min(data, (d) => d.total),
+              d3.max(data, (d) => d.total)])
+        .nice();
 
-  g.append("g")
-      .call(d3.axisLeft(y))
-    .append("text")
-      .attr("fill", "#000")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", "0.71em")
-      .attr("text-anchor", "end")
-      .text("Price ($)");
+    // Add the x axis
+    let xaxis = line_g.append("g").classed("xaxis", true)
+        .attr("transform", "translate(0," + line_height + ")")
+        .call(d3.axisBottom(line_x));
 
-  g.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "steelblue")
-      .attr("stroke-linejoin", "round")
-      .attr("stroke-linecap", "round")
-      .attr("stroke-width", 1.5)
-      .attr("d", line);
+    // Add the y axis
+    let yaxis = line_g.append("g").classed("yaxis", true)
+        .call(d3.axisLeft(line_y))
+        .append("text")
+        .attr("fill", "#000")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("text-anchor", "end")
+        .text("Total interventions");
+
+    // Add the path
+    line_g.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke", "steelblue")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5)
+        .attr("d", line);
 });
