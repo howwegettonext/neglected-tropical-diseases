@@ -12,7 +12,9 @@ let line_margin = {
     line_height = 500 - line_margin.top - line_margin.bottom;
 
 // First we'll define our axes
-let line_x = d3.scaleLinear().range([0, line_width]);
+let line_x = d3.scaleLinear()
+    .range([0, line_width]);
+
 let line_y = d3.scaleLinear().range([line_height, 0]);
 
 // Make an SVG to house the chart
@@ -34,7 +36,7 @@ let line = d3.line()
         return line_y(d.total);
     });
 
-d3.csv("data/line.csv").then(function (data) { // Load the data, then...
+d3.csv("data/line.csv", function (data) { // Load the data, then...
 
     // Set the x axis domain
     line_x.domain([d3.min(data, (d) => d.year),
@@ -42,7 +44,7 @@ d3.csv("data/line.csv").then(function (data) { // Load the data, then...
         .nice();
 
     // Set the y axis domain
-    line_y.domain([d3.min(data, (d) => d.total),
+    line_y.domain([0,
               d3.max(data, (d) => d.total)])
         .nice();
 
