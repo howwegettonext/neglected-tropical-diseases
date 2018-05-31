@@ -24,15 +24,16 @@ let scatter_svg = d3.select("#scatter")
 let scatter_g = scatter_svg.append("g")
     .attr("transform", `translate(${scatter_margin.left}, ${scatter_margin.top})`);
 
-d3.csv("data/scatter.csv", function (data) {
+d3.csv("data/scatter.csv", function (error, data) {
+    if (error) throw error;
+
     scatter_x.domain([d3.min(data, (d) => d.daly2015),
               d3.max(data, (d) => d.daly2015)])
         .nice();
 
-    //scatter_y.domain([d3.min(data, (d) => d.total),
-    //          d3.max(data, (d) => d.total)]) // Can't figure out why this doesn't work
-      scatter_y.domain([10, 12000])
-                  .nice();
+
+    scatter_y.domain([10, 12000])
+        .nice();
 
     // Add the x axis
     let xaxis = scatter_g.append("g").classed("xaxis", true)
@@ -59,9 +60,11 @@ d3.csv("data/scatter.csv", function (data) {
         .attr("cx", (data) => scatter_x(data.daly2015))
         .attr("cy", (data) => scatter_y(data.total))
         .attr("r", 10)
-        .attr("fill", (data) => {if (data.ntd == "TRUE") return "red"; 
-                                 else return "blue";});
-    
+        .attr("fill", (data) => {
+            if (data.ntd == "TRUE") return "red";
+            else return "blue";
+        });
+
     // Add captions to each point
     let captions = scatter_g.append("g").classed("captions", true)
         .selectAll("text")
