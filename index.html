@@ -4,11 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://d3js.org/d3.v4.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">    
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+    <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 
 <body>
-    
+
     <div id="bar">
         <p>The bar chart goes here.</p>
         <script src="script/bar.js"></script>
@@ -18,10 +21,16 @@
         <p>The scatter plot goes here.</p>
         <script src="script/scatter.js"></script>
     </div>
-    
-    <div id="map">
-        <p>The map goes here.</p>
+
+    <div id='map'>
         <script src="script/map.js"></script>
     </div>
+    <div class='map-overlay' id='features'>
+        <h2>NTD interventions</h2>
+        <div id='inter'>
+            <p>Hover over a country!</p>
+        </div>
+    </div>
+    <div class='map-overlay' id='legend'></div>
 
 </body>
