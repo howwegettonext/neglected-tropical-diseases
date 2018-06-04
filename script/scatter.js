@@ -34,15 +34,41 @@ d3.csv("data/scatter.csv", function (error, data) {
 
     scatter_y.domain([10, 12000])
         .nice();
+    
+    // X formatting
+    var axisFormat = d3.format(".0s");
 
+	// Make the SI "G" and "M" labels into "b" for billion and "m" for million respectively
+	function formatAbbrv(x) {
+		var s = axisFormat(x);
+		switch (s[s.length - 1]) {
+			case "G":
+				return s.slice(0, -1) + "b";
+			case "M":
+				return s.slice(0, -1) + "m";
+		}
+		return s;
+	}
+    
     // Add the x axis
     let xaxis = scatter_g.append("g").classed("xaxis", true)
         .attr("transform", "translate(0," + scatter_height + ")")
-        .call(d3.axisBottom(scatter_x));
+        .call(d3.axisBottom(scatter_x).tickFormat(function (d) {
+				return scatter_x.tickFormat(6, formatAbbrv)(d);
+			}))
+        .append("text")
+        .attr("fill", "#000")
+        .attr("x", scatter_width-6)
+        .attr("y", "-5px")
+        .attr("dx", "0.75em")
+        .attr("text-anchor", "end")
+        .text("Disability-Adjusted Life Years");
 
     // Add the y axis
     let yaxis = scatter_g.append("g").classed("yaxis", true)
-        .call(d3.axisLeft(scatter_y))
+        .call(d3.axisLeft(scatter_y).tickFormat(function (d) {
+				return scatter_y.tickFormat(5, formatAbbrv)(d);
+			}))
         .append("text")
         .attr("fill", "#000")
         .attr("transform", "rotate(-90)")
