@@ -90,7 +90,9 @@ a {
 }
 
 /* IMAGES */
-
+img {
+  max-height: 450px;
+}
 /* BUTTONS */
 
 /* HEADER */
