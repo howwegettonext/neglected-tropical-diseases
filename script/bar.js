@@ -1,29 +1,29 @@
-var margin = {
+var bar_margin = {
         top: 20,
-        right: 20,
+        right: 40,
         bottom: 30,
         left: 80
     },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    bar_width = parseInt(d3.select('#bar').style('width'), 10) - bar_margin.left - bar_margin.right,
+    bar_height = bar_width * 0.5 - bar_margin.top - bar_margin.bottom;
 
 // set the ranges
-var x = d3.scaleBand()
-    .range([0, width])
+var bar_x = d3.scaleBand()
+    .range([0, bar_width])
     .padding(0.1);
 
-var y = d3.scaleLinear()
-    .range([height, 0]);
+var bar_y = d3.scaleLinear()
+    .range([bar_height, 0]);
 
 // append the svg object to the body of the page
 // append a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-var svg = d3.select("#bar").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-        "translate(" + margin.left + "," + margin.top + ")");
+var barSvg = d3.select("#bar").append("svg")
+    .attr("width", bar_width + bar_margin.left + bar_margin.right)
+    .attr("height", bar_height + bar_margin.top + bar_margin.bottom);
+    
+var barChart= barSvg.append("g")
+    .attr("transform", `translate(${bar_margin.left}, ${bar_margin.top})`);
 
 // get the data
 d3.csv("data/bar.csv", function (error, data) {
@@ -36,41 +36,73 @@ d3.csv("data/bar.csv", function (error, data) {
     });
 
     // Scale the range of the data in the domains
-    x.domain(data.map(function (d) {
+    bar_x.domain(data.map(function (d) {
         return d.year;
     }));
-    y.domain([0, d3.max(data, function (d) {
+    bar_y.domain([0, d3.max(data, function (d) {
         return d.total;
     })]).nice();
 
     // append the rectangles for the bar chart
-    svg.selectAll(".bar")
+    var bars = barChart.selectAll(".bar")
         .data(data)
         .enter().append("rect")
         .attr("class", "bar")
         .attr("x", function (d) {
-            return x(d.year);
+            return bar_x(d.year);
         })
-        .attr("width", x.bandwidth())
+        .attr("width", bar_x.bandwidth())
         .attr("y", function (d) {
-            return y(d.total);
+            return bar_y(d.total);
         })
         .attr("height", function (d) {
-            return height - y(d.total);
+            return bar_height - bar_y(d.total);
         })
         .attr("fill", "steelblue");
 
     // add the x Axis
-    svg.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x));
+    var bar_xaxis = barChart.append("g")
+        .attr("transform", "translate(0," + bar_height + ")")
+        .call(d3.axisBottom(bar_x));
 
     // Turn the ticks a different colour
-    svg.selectAll(".tick line")
+    barChart.selectAll(".tick line")
         .attr("stroke", "none");
 
     // add the y Axis
-    svg.append("g")
-        .call(d3.axisLeft(y));
+    var bar_yaxis = barChart.append("g")
+        .call(d3.axisLeft(bar_y));
+    
+    barUpdate = function() {
+        // Get new width and height
+        bar_width = parseInt(d3.select('#bar').style('width'), 10) - bar_margin.left - bar_margin.right;
+        bar_height = bar_width * 0.5 - bar_margin.top - bar_margin.bottom;
+        
+        // Resize the SVG
+        barSvg.attr("width", bar_width + bar_margin.left + bar_margin.right)
+            .attr("height", bar_height + bar_margin.top + bar_margin.bottom);
+
+        // Recalculate scales
+        bar_x.range([0, bar_width]);
+        bar_y.range([bar_height, 0]);
+
+        // Move the bars
+        bars.attr("x", function (d) {
+                return bar_x(d.year);
+            })
+            .attr("width", bar_x.bandwidth())
+            .attr("y", function (d) {
+                return bar_y(d.total);
+            })
+            .attr("height", function (d) {
+                return bar_height - bar_y(d.total);
+            });
+        
+        // Move the axes
+        bar_xaxis.attr("transform", "translate(0," + bar_height + ")")
+        .call(d3.axisBottom(bar_x));
+        
+        bar_yaxis.call(d3.axisLeft(bar_y));
+    };
 
 });

@@ -5,71 +5,71 @@
 // Set chart size
 let scatter_margin = {
         top: 20,
-        right: 20,
+        right: 40,
         bottom: 30,
         left: 40
     },
-    scatter_width = 960 - scatter_margin.left - scatter_margin.right,
-    scatter_height = 500 - scatter_margin.top - scatter_margin.bottom;
+    scatter_width = parseInt(d3.select('#scatter').style('width'), 10) - scatter_margin.left - scatter_margin.right,
+    scatter_height = scatter_width * 0.5 - scatter_margin.top - scatter_margin.bottom;
 
 // First we'll define our ascatter_xes
 let scatter_x = d3.scaleLog().range([0, scatter_width]);
 let scatter_y = d3.scaleLog().range([scatter_height, 0]);
 
-let scatter_svg = d3.select("#scatter")
+let scatterSvg = d3.select("#scatter")
     .append("svg")
     .attr("width", scatter_width + scatter_margin.left + scatter_margin.right)
     .attr("height", scatter_height + scatter_margin.top + scatter_margin.bottom);
 
-let scatter_g = scatter_svg.append("g")
+let scatterChart = scatterSvg.append("g")
     .attr("transform", `translate(${scatter_margin.left}, ${scatter_margin.top})`);
 
 d3.csv("data/scatter.csv", function (error, data) {
     if (error) throw error;
 
-    scatter_x.domain([d3.min(data, (d) => d.daly2015),
-              d3.max(data, (d) => d.daly2015)])
-        .nice();
+    scatter_x.domain([200, 100000]);
 
 
     scatter_y.domain([10, 12000])
         .nice();
-    
+
     // X formatting
     var axisFormat = d3.format(".0s");
 
-	// Make the SI "G" and "M" labels into "b" for billion and "m" for million respectively
-	function formatAbbrv(x) {
-		var s = axisFormat(x);
-		switch (s[s.length - 1]) {
-			case "G":
-				return s.slice(0, -1) + "b";
-			case "M":
-				return s.slice(0, -1) + "m";
-		}
-		return s;
-	}
-    
+    // Make the SI "G" and "M" labels into "b" for billion and "m" for million respectively
+    function formatAbbrv(x) {
+        var s = axisFormat(x);
+        switch (s[s.length - 1]) {
+            case "G":
+                return s.slice(0, -1) + "b";
+            case "M":
+                return s.slice(0, -1) + "m";
+        }
+        return s;
+    }
+
     // Add the x axis
-    let xaxis = scatter_g.append("g").classed("xaxis", true)
+    let scatter_xaxis = scatterChart.append("g").classed("xaxis", true)
         .attr("transform", "translate(0," + scatter_height + ")")
         .call(d3.axisBottom(scatter_x).tickFormat(function (d) {
-				return scatter_x.tickFormat(6, formatAbbrv)(d);
-			}))
-        .append("text")
+            return scatter_x.tickFormat(6, formatAbbrv)(d);
+        }))
+        
+    let scatter_xlabel = scatter_xaxis.append("text")
         .attr("fill", "#000")
-        .attr("x", scatter_width-6)
+        .attr("x", scatter_width - 6)
         .attr("y", "-5px")
         .attr("dx", "0.75em")
         .attr("text-anchor", "end")
         .text("Disability-Adjusted Life Years");
 
     // Add the y axis
-    let yaxis = scatter_g.append("g").classed("yaxis", true)
+    let scatter_yaxis = scatterChart.append("g").classed("yaxis", true)
         .call(d3.axisLeft(scatter_y).tickFormat(function (d) {
-				return scatter_y.tickFormat(5, formatAbbrv)(d);
-			}))
-        .append("text")
+            return scatter_y.tickFormat(5, formatAbbrv)(d);
+        }))
+        
+    let scatter_ylabel = scatter_yaxis.append("text")
         .attr("fill", "#000")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
@@ -78,7 +78,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         .text("Total funding since 2007 ($ millions)");
 
     // Add points
-    let scatterpoints = scatter_g.append("g").classed("circles", true)
+    let scatterpoints = scatterChart.append("g").classed("circles", true)
         .selectAll("circle")
         .data(data)
         .enter()
@@ -92,15 +92,50 @@ d3.csv("data/scatter.csv", function (error, data) {
         });
 
     // Add captions to each point
-    let captions = scatter_g.append("g").classed("captions", true)
+    let captions = scatterChart.append("g").classed("captions", true)
         .selectAll("text")
         .data(data)
         .enter()
         .append("text")
         .text((data) => data.disease)
-        .attr("x", (data) => scatter_x(data.daly2015))
-        .attr("y", (data) => scatter_y(data.total) + 20)
+        .attr("x", (data) => scatter_x(data.daly2015) + 13)
+        .attr("y", (data) => scatter_y(data.total))
         .style("font-family", "sans-serif")
-        .style("font-size", "50%")
-        .style("text-anchor", "middle");
+        .style("font-size", "60%")
+        .style("text-anchor", "left")
+        .style("alignment-baseline", "middle");
+    
+    scatterUpdate = function() {
+        // Get new width and height
+        scatter_width = parseInt(d3.select('#scatter').style('width'), 10) - scatter_margin.left - scatter_margin.right;
+        scatter_height = scatter_width * 0.5 - scatter_margin.top - scatter_margin.bottom;
+
+        // Resize SVG
+        scatterSvg.attr("width", scatter_width + scatter_margin.left + scatter_margin.right)
+            .attr("height", scatter_height + scatter_margin.top + scatter_margin.bottom);
+
+        // Recalculate scales
+        scatter_x.range([0, scatter_width]);
+        scatter_y.range([scatter_height, 0]);
+
+        // Move the points and the captions
+        scatterpoints.attr("cx", (data) => scatter_x(data.daly2015))
+            .attr("cy", (data) => scatter_y(data.total));
+
+        captions.attr("x", (data) => scatter_x(data.daly2015) + 13)
+            .attr("y", (data) => scatter_y(data.total));
+
+        // Move the axes
+        scatter_xaxis.attr("transform", "translate(0," + scatter_height + ")")
+            .call(d3.axisBottom(scatter_x).tickFormat(function (d) {
+                return scatter_x.tickFormat(6, formatAbbrv)(d);
+            }));
+        
+        scatter_xlabel.attr("x", scatter_width - 6);
+
+        scatter_yaxis.call(d3.axisLeft(scatter_y).tickFormat(function (d) {
+            return scatter_y.tickFormat(5, formatAbbrv)(d);
+        }));
+    };
+
 });

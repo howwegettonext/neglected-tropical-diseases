@@ -36,4 +36,15 @@
     </div>
     <div class='map-overlay' id='legend'></div>
     <div id = "credits">Here are the credits.</div>
+    
+    <script>
+    // Update function
+    function update() {
+        barUpdate();
+        scatterUpdate();
+    }
+    
+    // Listen for resize and update
+	window.addEventListener("resize", update);
+    </script>
 </body>
