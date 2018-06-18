@@ -30,6 +30,19 @@ a {
     -webkit-transition-timing-function: ease-in-out;
 }
 
+/* CONTAINER */
+
+#mainwidth {
+    width: 90%;
+    max-width: 900px;
+    height: auto;
+    padding: 2px 20px;
+    margin: 0 auto;
+
+}
+
+/* LAYOUT */
+
 /**
 * Create a position for the map
 * on the page */
@@ -75,3 +88,23 @@ a {
   height: 10px;
   margin-right: 5px;
 }
+
+/* IMAGES */
+
+/* BUTTONS */
+
+/* HEADER */
+
+#header {
+    display: inline-block;
+}
+
+.button {
+    height: 40px;
+    width: auto;
+}
+
+#nextlogo {
+    margin-top: 10px;
+}
+
