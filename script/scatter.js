@@ -98,11 +98,11 @@ d3.csv("data/scatter.csv", function (error, data) {
         .enter()
         .append("text")
         .text((data) => data.disease)
-        .attr("x", (data) => scatter_x(data.daly2015) + 13)
-        .attr("y", (data) => scatter_y(data.total))
+        .attr("x", (data) => scatter_x(data.daly2015))
+        .attr("y", (data) => scatter_y(data.total) + 18)
         .style("font-family", "sans-serif")
-        .style("font-size", "60%")
-        .style("text-anchor", "left")
+        .style("font-size", "55%")
+        .style("text-anchor", "middle")
         .style("alignment-baseline", "middle");
     
     scatterUpdate = function() {
@@ -122,8 +122,8 @@ d3.csv("data/scatter.csv", function (error, data) {
         scatterpoints.attr("cx", (data) => scatter_x(data.daly2015))
             .attr("cy", (data) => scatter_y(data.total));
 
-        captions.attr("x", (data) => scatter_x(data.daly2015) + 13)
-            .attr("y", (data) => scatter_y(data.total));
+        captions.attr("x", (data) => scatter_x(data.daly2015))
+            .attr("y", (data) => scatter_y(data.total)+18);
 
         // Move the axes
         scatter_xaxis.attr("transform", "translate(0," + scatter_height + ")")
