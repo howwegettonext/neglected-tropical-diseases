@@ -2,6 +2,8 @@
 
 $(document).ready(function(){
       $('.cards').slick({
-        centerMode: true;
+      	centerMode: true,
+      	dots: true,
+      	slidesToShow: 3,
       });
     });
