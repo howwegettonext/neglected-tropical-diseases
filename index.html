@@ -8,7 +8,9 @@
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" type="text/css" href="style.css">
+     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+     <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
 </head>
 
 <body>
@@ -26,7 +28,11 @@
         <h2>What is an NTD?</h2>
         <p>NTDs are a group of tropical infections which are found most commonly in the poorest communities in Africa, Asia and South America. The group is medically diverse, encompassing parasitic infestations, bacteria and viruses, but what unites them is that they flourish in tropical conditions, and in those of poverty. Most have afflicted humans for centuries, but have gradually disappeared from parts of the world that have improved their living conditions and hygiene. Today, they fester in places where inadequate housing, dirty water and poor sanitation combine to create a environment where they can spread fast and efficiently.</p>
         <p>The list of which diseases are recognised as NTDs varies somewhat between different health agencies, and the number has grown over time. But for our purposes, we’ll be using the World Health Organization’s <a href="http://www.who.int/neglected_diseases/diseases/en/">current list</a> of twenty NTDs. Here they are:</p>
-        <script src="script/cards.js"></script>
+        <div class="cards">
+          <div>Buruli Ulcer</div>
+          <div>Leprosy</div>
+          <div>Trachoma</div>
+        </div>
     </div>
 
     <div id="scatter">
@@ -80,4 +86,10 @@
     // Listen for resize and update
 	window.addEventListener("resize", update);
     </script>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
+    <script src="script/cards.js"></script>
+
 </body>
