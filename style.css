@@ -1,3 +1,10 @@
+/*TYPOGRAPHY*/
+
+body {
+  font-family: "futura-pt", sans-serif;
+  color: #4A4A4A;
+}
+
 h2,
 h3 {
   margin: 10px;
@@ -12,6 +19,15 @@ p {
   font-size: 0.85em;
   margin: 10px;
   text-align: left;
+}
+
+a {
+    color: #80BCA3;
+    text-decoration: none;
+    transition: 200ms;
+    transition-timing-function: ease-in-out;
+    -webkit-transition: 200ms;
+    -webkit-transition-timing-function: ease-in-out;
 }
 
 /**
