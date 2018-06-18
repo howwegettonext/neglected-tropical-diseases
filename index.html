@@ -12,30 +12,57 @@
 
 <body>
     <div id="intro">
-        Intro text
+        <h2>Introduction</h2>
+        <p>Discussions about global health usually revolve around malaria, tuberculosis and HIV/AIDS. The “big three”, as they’re known, dominate not only the conversation  but also the pool of funding available for public health projects.</p>
+        <p>But there are other diseases which don’t get the same level of public attention or financial support. These conditions, known collectively as Neglected Tropical Diseases (NTDs), afflict more than a billion people in the world’s poorest countries. In this visual essay we’ll look at what NTDs are, where they’re found, how many people they affect and why they’re so neglected.</p>
     </div>
-    <div id="bar">
-        <p>Some words about the bar chart.</p>
-        <script src="script/bar.js"></script>
+    <div id="cards">
+        <h2>What is an NTD?</h2>
+        <p>NTDs are a group of tropical infections which are found most commonly in the poorest communities in Africa, Asia and South America. The group is medically diverse, encompassing parasitic infestations, bacteria and viruses, but what unites them is that they flourish in tropical conditions, and in those of poverty. Most have afflicted humans for centuries, but have gradually disappeared from parts of the world that have improved their living conditions and hygiene. Today, they fester in places where inadequate housing, dirty water and poor sanitation combine to create a environment where they can spread fast and efficiently.</p>
+        <p>The list of which diseases are recognised as NTDs varies somewhat between different health agencies, and the number has grown over time. But for our purposes, we’ll be using the World Health Organization’s <a href="http://www.who.int/neglected_diseases/diseases/en/">current list</a> of twenty NTDs. Here they are:</p>
+        <script src="script/cards.js"></script>
     </div>
 
     <div id="scatter">
-        <p>Some words about the scatter plot.</p>
+        <p>There are many different reasons for the neglect shown to these diseases, and the biggest is that they only affect the world’s poorest people. “Impoverished and marginalized populations with the NTDs represent the lowest priority markets for U.S. and European pharmaceutical manufacturers,” wrote tropical medicine expert Peter Hotez and a group of other researchers in a <a href="https://link.springer.com/chapter/10.1007%2F0-387-33026-7_3#citeas">2006 paper.</a> “The NTDs do not occur in the industrialized world or even among the substantial wealthy and middle-classes in developing countries. They are not a significant health risk for foreign travelers or the military. This is in contrast to the more substantial commercial markets for HIV/AIDS, malaria and tuberculosis.”</p>
+        <p>Other reasons for NTDs’ low profile include social stigma that deters people from seeking medical treatment, long incubation periods with few symptoms (so the connection between a death and a long-held infection is often not realized), and the geographic isolation of the communities where NTDs are most common.</p>
+        <p>The result of this neglect is that NTD research and treatment programmes receive much lower levels of funding than the big three. You can see this gap in the following scatterplot, which shows R&D investment since 2007 for selected NTDs as well as the “big three” on the x-axis.  We’ve also included a measure of the impact of each disease on human health on the y-axis in the form of the Disability-Adjusted Life Year, or DALY. The DALY is a <a href="https://series.howwegettonext.com/onelastthing/measuring-global-health-daly/">useful statistic</a> that combines death and disability caused by a disease into a single figure. Note that both axes use log scales, so they increase exponentially rather than linearly.</p>
         <script src="script/scatter.js"></script>
     </div>
 
-    <div id='map'>
-        <p>Some words about the map.</p>
+    <div id="map">
+        <h2>Where are NTDs found?</h2>
+        <p>Neglected tropical diseases are not spread evenly throughout the world. As noted above, they primarily affect the world’s poorest countries. This map shows the number of people requiring treatment as a result of NTD infection between 2010 and 2015 around the world. You can zoom and pan the map to get a closer look. It’s easy to see the general pattern - that NTDs primarily plague the global south.</p>
         <script src="script/map.js"></script>
     </div>
-    <div class='map-overlay' id='features'>
+
+    <div class="map-overlay" id="features">
         <h2>NTD interventions</h2>
-        <div id='inter'>
+        <div id="inter">
             <p>Hover over a country!</p>
         </div>
     </div>
-    <div class='map-overlay' id='legend'></div>
-    <div id = "credits">Here are the credits.</div>
+    <div class="map-overlay" id="legend"></div>
+
+    <div id="bar">
+        <h2>NTDs are declining</h2>
+        <p>There’s some good news. Since the World Health Organization began targeting NTDs in 2007, the estimated number of people requiring treatment each year has begun to fall. Numbers have dropped from about two billion in 2010 to a little under 1.6 billion in 2015.</p>
+        <script src="script/bar.js"></script>
+        <p>This drop has been driven by a concerted effort by the WHO, by world governments and by the pharmaceutical industry - which has donated large quantities of free medicines that suppress common tropical parasitic and bacterial infections. The key tipping point came in 2012, when the <a href="https://en.wikipedia.org/wiki/London_Declaration_on_Neglected_Tropical_Diseases">London Declaration on Neglected Tropical Diseases</a> resulted in pharmaceutical companies agreeing to donate two to three billion US$ worth of drugs through 2020, providing close to a billion people per year with access to free treatment. It also included US$785 million for research and development. “The London meeting was a landmark in public health cooperation, setting an ambitious agenda for the next decade,” writes the WHO <a href="http://www.who.int/publications/10-year-review/ntd/en/index2.html">on its website.<a></p>
+        <p>Ambitious goals have been set to keep pushing this progress forwards. The WHO aims to eliminate six of the NTDs (guinea-worm disease, yaws, trachoma, sleeping sickness, leprosy and elephantiasis) as a public health problem by 2020, with a combination of donated medicines and vector control.</p>
+    </div>
+
+    <div id="animation">
+        <p>The <a href="https://en.wikipedia.org/wiki/Eradication_of_dracunculiasis">efforts against Guinea-worm disease</a> have been perhaps the most successful—cases have fallen from an estimated 3.5 million in 1986 to just 22 cases in 2015. The number has risen slightly since, to 30 in 2017, mostly due to the discovery that dogs can also carry the disease. But experts believe that the eradication of the disease is now only a matter of time.</p>
+    </div>
+
+    <div id="conclusion">
+        <p>But ultimately, solving the world’s NTD problem is really about solving poverty. Sustained programmes for addressing problems around water supply, sanitation, nutrition and housing will have a far bigger long-term effect on the incidence of NTDs than donated pills ever can.</p>
+        <p>“WHO’s duty is to secure the future of generations to come,” the agency wrote in its 2012 roadmap for the elimination of NTDs. “In spite of several remaining obstacles and challenges, the targets [we have set] are ambitious but achievable.”</p>
+    </div>
+
+    <div id = "credits"></div>
+
     
     <script>
     // Update function
