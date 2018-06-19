@@ -31,6 +31,10 @@ a {
     -webkit-transition-timing-function: ease-in-out;
 }
 
+a:hover {
+  color: #679984;
+}
+
 h2.cardtext {
   margin: 5px 0;
 }
