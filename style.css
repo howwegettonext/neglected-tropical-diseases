@@ -94,7 +94,7 @@ img {
 }
 
 .graphics {
-  max-width: 240px;
+  max-width: 230px;
 }
 
 /* BUTTONS */
@@ -118,4 +118,33 @@ img {
 
 .card {
   border: 7px solid black;
+  margin: 0 10px;
+}
+
+.card.bacteria {
+  border-color: #80BCA3;
+}
+
+.card.mite {
+  border-color: #655643;
+}
+
+.card.protozoa {
+  border-color: #BF4D28;
+}
+
+.card.venom {
+  border-color: #F6F7BD;
+}
+
+.card.virus {
+  border-color: #3D5737;
+}
+
+.card.worm {
+  border-color: #E6AC27;
+}
+
+.cardtext {
+  padding: 0 10px;
 }
