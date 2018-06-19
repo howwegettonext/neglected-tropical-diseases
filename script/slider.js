@@ -8,12 +8,12 @@ $(document).ready(function(){
       	centerPadding: '60px',
       	 responsive: [
 		    {
-		      breakpoint: 768,
+		      breakpoint: 950,
 		      settings: {
 		        arrows: false,
 		        centerMode: true,
 		        centerPadding: '40px',
-		        slidesToShow: 3
+		        slidesToShow: 2,
 		      }
 		    },
 		    {
