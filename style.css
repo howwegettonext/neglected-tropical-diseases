@@ -88,9 +88,15 @@ a {
 }
 
 /* IMAGES */
+
 img {
   max-height: 450px;
 }
+
+.graphics {
+  max-width: 240px;
+}
+
 /* BUTTONS */
 
 /* HEADER */
@@ -108,3 +114,8 @@ img {
     margin-top: 10px;
 }
 
+/* CARDS */
+
+.card {
+  border: 7px solid black;
+}
