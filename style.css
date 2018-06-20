@@ -51,6 +51,11 @@ p.cardtext {
   padding-top: 180px;
 }
 
+.fineprint {
+  bottom: 20px;
+  position: absolute;
+}
+
 /* CONTAINER */
 
 #mainwidth {
@@ -134,9 +139,6 @@ img.wide.graphics {
   top: 90px;
 }
 
-#guinea_worm {
-  top: 100px;
-}
 /* BUTTONS */
 
 /* HEADER */
