@@ -26,6 +26,21 @@ var barSvg = d3.select("#bar").append("svg")
 var barChart = barSvg.append("g")
     .attr("transform", `translate(${bar_margin.left}, ${bar_margin.top})`);
 
+// First set the text format
+var bar_format = d3.format(".4s");
+
+// Make the SI "G" and "M" labels into "b" for billion and "m" for million respectively
+function bar_format_abbrv(x) {
+	var s = bar_format(x);
+	switch (s[s.length - 1]) {
+		case "G":
+			return s.slice(0, -1) + "b";
+		case "M":
+			return s.slice(0, -1) + "m";
+	}
+	return s;
+}
+
 // get the data
 d3.csv("data/bar.csv", function (error, data) {
     if (error) throw error;
@@ -82,14 +97,14 @@ d3.csv("data/bar.csv", function (error, data) {
         .enter()
         .append("text")
         .attr("class", "bar_labels")
-        .text((d) => d3.format(",")(d.total))
+        .text((d) => bar_format_abbrv(d.total))
         .attr("x", (d) => bar_x(d.year) + (bar_x.bandwidth() / 2))
-        .attr("y", (d) => bar_y(d.total) - bar_width/40)
+        .attr("y", (d) => bar_y(d.total) - bar_width/50)
         .style("font-family", "Futura-pt, sans-serif")
+        .style("font-size", "80%")
         .style("fill", "#f3f1ec")
-        .style("font-size", `${bar_width/7.5}%`)
         .style("text-anchor", "middle")
-        .style("alignment-baseline", "top");
+        .style("alignment-baseline", "baseline");
 
     barUpdate = function () {
         // Get new width and height
@@ -118,8 +133,7 @@ d3.csv("data/bar.csv", function (error, data) {
 
         // Move the captions
         bar_captions.attr("x", (d) => bar_x(d.year) + (bar_x.bandwidth() / 2))
-            .attr("y", (d) => bar_y(d.total) - bar_width/40)
-            .style("font-size", `${bar_width/7.5}%`);
+            .attr("y", (d) => bar_y(d.total) - bar_width/50);
 
         // Move the axes
         bar_xaxis.attr("transform", "translate(0," + bar_height + ")")
