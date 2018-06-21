@@ -6,8 +6,8 @@ html {
 
 body {
   font-family: "futura-pt", sans-serif;
-  color: #f3f1ec;
-  background-color: #BF4D28;
+  color: #f4eedf;
+  background-color: #272924;
 }
 
 h1 {
@@ -119,7 +119,7 @@ p.cardtext {
 }
 
 .axis line {
-  stroke: #f3f1ec;
+  stroke: #f4eedf;
 }
 
 #bar_chart line {
@@ -131,11 +131,11 @@ p.cardtext {
 }
 
 .axis path {
-  stroke: #f3f1ec;
+  stroke: #f4eedf;
 }
 
 .axis text {
-  fill: #f3f1ec;   
+  fill: #f4eedf;   
   font: 14px futura-pt;
 }
 
