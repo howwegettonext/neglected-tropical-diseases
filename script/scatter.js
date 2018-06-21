@@ -4,10 +4,10 @@
 
 // Set chart size
 let scatter_margin = {
-        top: 20,
-        right: 40,
+        top: 10,
+        right: 20,
         bottom: 30,
-        left: 40
+        left: 30
     },
     scatter_width = parseInt(d3.select('#scatter').style('width'), 10) - scatter_margin.left - scatter_margin.right,
     scatter_height = scatter_width * 0.5 - scatter_margin.top - scatter_margin.bottom;
@@ -73,10 +73,11 @@ d3.csv("data/scatter.csv", function (error, data) {
 
     let scatter_ylabel = scatter_yaxis.append("text")
         .attr("fill", "#f3f1ec")
-        .attr("transform", "rotate(-90)")
+        //.attr("transform", "rotate(-90)")
         .attr("y", 6)
+        .attr("x", 6)
         .attr("dy", "0.71em")
-        .attr("text-anchor", "end")
+        .attr("text-anchor", "start")
         .text("R&D since 2007 ($mil)");
 
     // Add points
@@ -126,21 +127,21 @@ d3.csv("data/scatter.csv", function (error, data) {
         .style("font-size", "100%")
         .style("font-weight", "bold")
         .style("fill", "#f3f1ec")
-        .style("text-anchor", "left")
-        .style("alignment-baseline", "middle");
+        .style("text-anchor", "middle")
+        .style("alignment-baseline", "baseline");
     
     let big3_caption = scatterChart.append("g")
         .append("text")
         .text("Big Three")
         .attr("class", "captions")
-        .attr("x", scatter_x(30000))
-        .attr("y", scatter_y(40000))
+        .attr("x", scatter_x(50000))
+        .attr("y", scatter_y(2000))
         .style("font-family", "Futura-pt, sans-serif")
         .style("font-weight", "bold")
         .style("font-size", "100%")
         .style("fill", "#f3f1ec")
-        .style("text-anchor", "left")
-        .style("alignment-baseline", "middle");
+        .style("text-anchor", "middle")
+        .style("alignment-baseline", "hanging");
 
     scatterUpdate = function () {
         // Get new width and height
@@ -172,8 +173,8 @@ d3.csv("data/scatter.csv", function (error, data) {
         ntds_caption.attr("x", scatter_x(800))
         .attr("y", scatter_y(2000))
         
-        big3_caption.attr("x", scatter_x(30000))
-        .attr("y", scatter_y(20000));
+        big3_caption.attr("x", scatter_x(50000))
+        .attr("y", scatter_y(2000));
 
         // Move the axes
         scatter_xaxis.attr("transform", "translate(0," + scatter_height + ")")
