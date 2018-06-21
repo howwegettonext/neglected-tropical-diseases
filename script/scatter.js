@@ -77,7 +77,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         .attr("y", 6)
         .attr("dy", "0.71em")
         .attr("text-anchor", "end")
-        .text("Funding since 2007 ($ millions)");
+        .text("R&D since 2007 ($mil)");
 
     // Add points
     let scatterpoints = scatterChart.append("g").classed("circles", true)
@@ -115,6 +115,32 @@ d3.csv("data/scatter.csv", function (error, data) {
         .style("fill", "#f3f1ec")
         .style("text-anchor", "left")
         .style("alignment-baseline", "middle");
+    
+    let ntds_caption = scatterChart.append("g")
+        .append("text")
+        .text("NTDs")
+        .attr("class", "captions")
+        .attr("x", scatter_x(800))
+        .attr("y", scatter_y(2000))
+        .style("font-family", "Futura-pt, sans-serif")
+        .style("font-size", "100%")
+        .style("font-weight", "bold")
+        .style("fill", "#f3f1ec")
+        .style("text-anchor", "left")
+        .style("alignment-baseline", "middle");
+    
+    let big3_caption = scatterChart.append("g")
+        .append("text")
+        .text("Big Three")
+        .attr("class", "captions")
+        .attr("x", scatter_x(30000))
+        .attr("y", scatter_y(20000))
+        .style("font-family", "Futura-pt, sans-serif")
+        .style("font-weight", "bold")
+        .style("font-size", "100%")
+        .style("fill", "#f3f1ec")
+        .style("text-anchor", "left")
+        .style("alignment-baseline", "middle");
 
     scatterUpdate = function () {
         // Get new width and height
@@ -142,6 +168,12 @@ d3.csv("data/scatter.csv", function (error, data) {
                     return "hidden";
                 }
             });
+        
+        ntds_caption.attr("x", scatter_x(800))
+        .attr("y", scatter_y(2000))
+        
+        big3_caption.attr("x", scatter_x(30000))
+        .attr("y", scatter_y(20000));
 
         // Move the axes
         scatter_xaxis.attr("transform", "translate(0," + scatter_height + ")")
