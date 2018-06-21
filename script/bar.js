@@ -1,8 +1,8 @@
 var bar_margin = {
-        top: 20,
-        right: 40,
+        top: 40,
+        right: 20,
         bottom: 30,
-        left: 80
+        left: 20
     },
     bar_width = parseInt(d3.select('#bar').style('width'), 10) - bar_margin.left - bar_margin.right,
     bar_height = bar_width * 0.5 - bar_margin.top - bar_margin.bottom;
@@ -20,9 +20,10 @@ var bar_y = d3.scaleLinear()
 // moves the 'group' element to the top left margin
 var barSvg = d3.select("#bar").append("svg")
     .attr("width", bar_width + bar_margin.left + bar_margin.right)
-    .attr("height", bar_height + bar_margin.top + bar_margin.bottom);
-    
-var barChart= barSvg.append("g")
+    .attr("height", bar_height + bar_margin.top + bar_margin.bottom)
+    .attr("id", "bar_chart");
+
+var barChart = barSvg.append("g")
     .attr("transform", `translate(${bar_margin.left}, ${bar_margin.top})`);
 
 // get the data
@@ -58,26 +59,43 @@ d3.csv("data/bar.csv", function (error, data) {
         .attr("height", function (d) {
             return bar_height - bar_y(d.total);
         })
-        .attr("fill", "steelblue");
+        .attr("fill", "#E6AC27");
 
     // add the x Axis
     var bar_xaxis = barChart.append("g")
+        .attr("class", "axis")
         .attr("transform", "translate(0," + bar_height + ")")
         .call(d3.axisBottom(bar_x));
 
-    // Turn the ticks a different colour
+    // Turn the ticks off
     barChart.selectAll(".tick line")
         .attr("stroke", "none");
 
     // add the y Axis
-    var bar_yaxis = barChart.append("g")
-        .call(d3.axisLeft(bar_y));
-    
-    barUpdate = function() {
+    //var bar_yaxis = barChart.append("g")
+    //    .attr("class", "axis")
+    //    .call(d3.axisLeft(bar_y).ticks(bar_width/100));
+
+    var bar_captions = barChart.append("g")
+        .selectAll("text")
+        .data(data)
+        .enter()
+        .append("text")
+        .attr("class", "bar_labels")
+        .text((d) => d3.format(",")(d.total))
+        .attr("x", (d) => bar_x(d.year) + (bar_x.bandwidth() / 2))
+        .attr("y", (d) => bar_y(d.total) - bar_width/40)
+        .style("font-family", "Futura-pt, sans-serif")
+        .style("fill", "#f3f1ec")
+        .style("font-size", `${bar_width/7.5}%`)
+        .style("text-anchor", "middle")
+        .style("alignment-baseline", "top");
+
+    barUpdate = function () {
         // Get new width and height
         bar_width = parseInt(d3.select('#bar').style('width'), 10) - bar_margin.left - bar_margin.right;
         bar_height = bar_width * 0.5 - bar_margin.top - bar_margin.bottom;
-        
+
         // Resize the SVG
         barSvg.attr("width", bar_width + bar_margin.left + bar_margin.right)
             .attr("height", bar_height + bar_margin.top + bar_margin.bottom);
@@ -97,12 +115,17 @@ d3.csv("data/bar.csv", function (error, data) {
             .attr("height", function (d) {
                 return bar_height - bar_y(d.total);
             });
-        
+
+        // Move the captions
+        bar_captions.attr("x", (d) => bar_x(d.year) + (bar_x.bandwidth() / 2))
+            .attr("y", (d) => bar_y(d.total) - bar_width/40)
+            .style("font-size", `${bar_width/7.5}%`);
+
         // Move the axes
         bar_xaxis.attr("transform", "translate(0," + bar_height + ")")
-        .call(d3.axisBottom(bar_x));
-        
-        bar_yaxis.call(d3.axisLeft(bar_y));
+            .call(d3.axisBottom(bar_x));
+
+        //bar_yaxis.call(d3.axisLeft(bar_y).ticks(bar_width/100));
     };
 
 });

@@ -50,13 +50,14 @@ d3.csv("data/scatter.csv", function (error, data) {
 
     // Add the x axis
     let scatter_xaxis = scatterChart.append("g").classed("xaxis", true)
+        .attr("class", "axis")
         .attr("transform", "translate(0," + scatter_height + ")")
         .call(d3.axisBottom(scatter_x).tickFormat(function (d) {
-            return scatter_x.tickFormat(6, formatAbbrv)(d);
-        }))
-        
+            return scatter_x.tickFormat(3, formatAbbrv)(d);
+        }));
+
     let scatter_xlabel = scatter_xaxis.append("text")
-        .attr("fill", "#000")
+        .attr("fill", "#f3f1ec")
         .attr("x", scatter_width - 6)
         .attr("y", "-5px")
         .attr("dx", "0.75em")
@@ -65,17 +66,18 @@ d3.csv("data/scatter.csv", function (error, data) {
 
     // Add the y axis
     let scatter_yaxis = scatterChart.append("g").classed("yaxis", true)
+        .attr("class", "axis")
         .call(d3.axisLeft(scatter_y).tickFormat(function (d) {
-            return scatter_y.tickFormat(5, formatAbbrv)(d);
-        }))
-        
+            return scatter_y.tickFormat(scatter_height / 200, formatAbbrv)(d);
+        }));
+
     let scatter_ylabel = scatter_yaxis.append("text")
-        .attr("fill", "#000")
+        .attr("fill", "#f3f1ec")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
         .attr("dy", "0.71em")
         .attr("text-anchor", "end")
-        .text("Total funding since 2007 ($ millions)");
+        .text("Funding since 2007 ($ millions)");
 
     // Add points
     let scatterpoints = scatterChart.append("g").classed("circles", true)
@@ -85,27 +87,39 @@ d3.csv("data/scatter.csv", function (error, data) {
         .append("circle")
         .attr("cx", (data) => scatter_x(data.daly2015))
         .attr("cy", (data) => scatter_y(data.total))
-        .attr("r", 10)
+        .attr("r", 5)
         .attr("fill", (data) => {
-            if (data.ntd == "TRUE") return "red";
-            else return "blue";
+            if (data.ntd == "TRUE") return "#E6AC27";
+            else return "#7fbda3";
         });
 
     // Add captions to each point
-    let captions = scatterChart.append("g").classed("captions", true)
+    let scatter_captions = scatterChart.append("g")
         .selectAll("text")
         .data(data)
         .enter()
         .append("text")
         .text((data) => data.disease)
+        .attr("class", "captions")
         .attr("x", (data) => scatter_x(data.daly2015))
-        .attr("y", (data) => scatter_y(data.total) + 18)
-        .style("font-family", "sans-serif")
-        .style("font-size", "55%")
-        .style("text-anchor", "middle")
+        .attr("y", (data) => scatter_y(data.total) + 14)
+        .style("visibility", () => { //Breakpoint for caption visibility
+            if (scatter_width > 700) {
+                return "visible";
+            } else {
+                return "hidden";
+            }
+        })
+        .style("font-family", "Futura-pt, sans-serif")
+        .style("font-size", "70%")
+        .style("fill", (data) => {
+            if (data.ntd == "TRUE") return "#E6AC27";
+            else return "#7fbda3";
+        })
+        .style("text-anchor", "left")
         .style("alignment-baseline", "middle");
-    
-    scatterUpdate = function() {
+
+    scatterUpdate = function () {
         // Get new width and height
         scatter_width = parseInt(d3.select('#scatter').style('width'), 10) - scatter_margin.left - scatter_margin.right;
         scatter_height = scatter_width * 0.5 - scatter_margin.top - scatter_margin.bottom;
@@ -122,19 +136,26 @@ d3.csv("data/scatter.csv", function (error, data) {
         scatterpoints.attr("cx", (data) => scatter_x(data.daly2015))
             .attr("cy", (data) => scatter_y(data.total));
 
-        captions.attr("x", (data) => scatter_x(data.daly2015))
-            .attr("y", (data) => scatter_y(data.total)+18);
+        scatter_captions.attr("x", (data) => scatter_x(data.daly2015))
+            .attr("y", (data) => scatter_y(data.total) + 18)
+            .style("visibility", () => { // Breakpoint for caption visibility
+                if (scatter_width > 700) {
+                    return "visible";
+                } else {
+                    return "hidden";
+                }
+            });
 
         // Move the axes
         scatter_xaxis.attr("transform", "translate(0," + scatter_height + ")")
             .call(d3.axisBottom(scatter_x).tickFormat(function (d) {
-                return scatter_x.tickFormat(6, formatAbbrv)(d);
+                return scatter_x.tickFormat(3, formatAbbrv)(d);
             }));
-        
+
         scatter_xlabel.attr("x", scatter_width - 6);
 
         scatter_yaxis.call(d3.axisLeft(scatter_y).tickFormat(function (d) {
-            return scatter_y.tickFormat(5, formatAbbrv)(d);
+            return scatter_y.tickFormat(scatter_height / 200, formatAbbrv)(d);
         }));
     };
 

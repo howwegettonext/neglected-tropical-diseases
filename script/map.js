@@ -10,36 +10,15 @@ var map = new mapboxgl.Map({
 map.scrollZoom.disable();
 map.addControl(new mapboxgl.NavigationControl());
 
-map.on('load', function () {
-    // the rest of the code will go in here
-    var layers = ['0 - 100', '100 - 10,000', '10,000 - 1,000,000', '1,000,000 - 10,000,000', '10,000,000 - 100,000,000', '100,000,000+', 'No data'];
-    var colors = ['#ffffe0', '#ffcb8f', '#fe906c', '#e75555', '#bf2239', '#8a0000', '#000000'];
-
-    for (let i = 0; i < layers.length; i++) {
-        var layer = layers[i];
-        var color = colors[i];
-        var item = document.createElement('div');
-        var key = document.createElement('span');
-        key.className = 'legend-key';
-        key.style.backgroundColor = color;
-
-        var value = document.createElement('span');
-        value.innerHTML = layer;
-        item.appendChild(key);
-        item.appendChild(value);
-        legend.appendChild(item);
-    }
-});
-
 map.on('mousemove', function (e) {
     var countries = map.queryRenderedFeatures(e.point, {
         layers: ['ntds']
     });
 
     if (countries.length > 0) {
-        document.getElementById('inter').innerHTML = '<h3><strong>' + countries[0].properties.NAME_LONG + '</strong></h3><p><strong><em>' + countries[0].properties.ntds_total + '</strong> interventions since 2007</em></p>';
+        document.getElementById('inter').innerHTML = '<p style="text-align: center"><strong>' + countries[0].properties.NAME_LONG + '</strong> - <em>' + d3.format(",")(countries[0].properties.ntds_total) + ' interventions since 2007</em></p>';
     } else {
-        document.getElementById('inter').innerHTML = '<p>Hover over or touch a country!</p>';
+        document.getElementById('inter').innerHTML = '<p style="text-align: center">Hover over or touch a country</p>';
     }
 });
 
@@ -49,14 +28,14 @@ map.on('touchstart', function (e) {
     });
 
     if (countries.length > 0) {
-        document.getElementById('inter').innerHTML = '<h3><strong>' + countries[0].properties.NAME_LONG + '</strong></h3><p><strong><em>' + countries[0].properties.ntds_total + '</strong> interventions since 2007</em></p>';
+        document.getElementById('inter').innerHTML = '<p style="text-align: center"><strong>' + countries[0].properties.NAME_LONG + '</strong> - <em>' + d3.format(",")(countries[0].properties.ntds_total) + ' interventions since 2007</em></p>';
     } else {
-        document.getElementById('inter').innerHTML = '<p>Hover over or touch a country!</p>';
+        document.getElementById('inter').innerHTML = '<p style="text-align: center">Hover over or touch a country</p>';
     }
 });
 
 map.on('touchend', function(e) {
-    document.getElementById('inter').innerHTML = '<p>Hover over or touch a country!</p>';
+    document.getElementById('inter').innerHTML = '<p style="text-align: center">Hover over or touch a country</p>';
 });
 
 map.getCanvas().style.cursor = 'default';

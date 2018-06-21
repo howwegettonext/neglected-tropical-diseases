@@ -84,9 +84,8 @@ p.cardtext {
 .map-overlay {
   bottom: 0;
   right: 0;
-  background: rgba(255, 255, 255, 0.8);
   margin-right: 20px;
-  font-family: Arial, sans-serif;
+  font-family: Futura-pt, sans-serif;
   overflow: auto;
   border-radius: 3px;
 }
@@ -113,6 +112,26 @@ p.cardtext {
   width: 10px;
   height: 10px;
   margin-right: 5px;
+}
+
+.axis line {
+  stroke: #f3f1ec;
+}
+
+#bar_chart line {
+  stroke: none;
+}
+
+#bar_chart path {
+  stroke: none;
+}
+
+.axis path {
+  stroke: #f3f1ec;
+}
+
+.axis text {
+  fill: #f3f1ec;
 }
 
 /* IMAGES */
