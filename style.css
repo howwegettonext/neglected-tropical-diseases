@@ -364,3 +364,13 @@ a svg:hover .social {
     text-align: left;
     padding: .5em 0;
 }
+
+/* MEDIA QUERIES */
+
+@media (max-width: 720px) {
+  .slider {
+    width: 100vw;
+    margin-left: -50vw;
+    left: 50%;
+  }
+}
