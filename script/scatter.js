@@ -134,7 +134,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         .text("Big Three")
         .attr("class", "captions")
         .attr("x", scatter_x(30000))
-        .attr("y", scatter_y(20000))
+        .attr("y", scatter_y(40000))
         .style("font-family", "Futura-pt, sans-serif")
         .style("font-weight", "bold")
         .style("font-size", "100%")
