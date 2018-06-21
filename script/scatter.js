@@ -89,7 +89,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         .attr("cy", (data) => scatter_y(data.total))
         .attr("r", 5)
         .attr("fill", (data) => {
-            if (data.ntd == "TRUE") return "#E6AC27";
+            if (data.ntd == "TRUE") return "#F6F7BD";
             else return "#7fbda3";
         });
 
@@ -112,10 +112,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         })
         .style("font-family", "Futura-pt, sans-serif")
         .style("font-size", "70%")
-        .style("fill", (data) => {
-            if (data.ntd == "TRUE") return "#E6AC27";
-            else return "#7fbda3";
-        })
+        .style("fill", "#f3f1ec")
         .style("text-anchor", "left")
         .style("alignment-baseline", "middle");
 
