@@ -1,5 +1,9 @@
 /*TYPOGRAPHY*/
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "futura-pt", sans-serif;
   color: #f3f1ec;
