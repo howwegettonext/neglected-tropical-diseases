@@ -86,12 +86,7 @@ d3.csv("data/bar.csv", function (error, data) {
     barChart.selectAll(".tick line")
         .attr("stroke", "none");
 
-    // add the y Axis
-    //var bar_yaxis = barChart.append("g")
-    //    .attr("class", "axis")
-    //    .call(d3.axisLeft(bar_y).ticks(bar_width/100));
-
-    var bar_captions = barChart.append("g")
+    var bar_labels = barChart.append("g")
         .selectAll("text")
         .data(data)
         .enter()
@@ -104,7 +99,6 @@ d3.csv("data/bar.csv", function (error, data) {
         .style("font-size", "80%")
         .style("fill", "#f3f1ec")
         .style("text-anchor", "middle")
-        .style("alignment-baseline", "baseline");
 
     barUpdate = function () {
         // Get new width and height
@@ -132,14 +126,12 @@ d3.csv("data/bar.csv", function (error, data) {
             });
 
         // Move the captions
-        bar_captions.attr("x", (d) => bar_x(d.year) + (bar_x.bandwidth() / 2))
-            .attr("y", (d) => bar_y(d.total) - bar_width/50);
+        bar_labels.attr("x", (d) => bar_x(d.year) + (bar_x.bandwidth() / 2))
+            .attr("y", (d) => bar_y(d.total) - bar_width/40);
 
-        // Move the axes
+        // Move the axis
         bar_xaxis.attr("transform", "translate(0," + bar_height + ")")
             .call(d3.axisBottom(bar_x));
-
-        //bar_yaxis.call(d3.axisLeft(bar_y).ticks(bar_width/100));
     };
 
 });

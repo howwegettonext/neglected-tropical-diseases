@@ -7,7 +7,7 @@ let scatter_margin = {
         top: 10,
         right: 20,
         bottom: 30,
-        left: 30
+        left: 40
     },
     scatter_width = parseInt(d3.select('#scatter').style('width'), 10) - scatter_margin.left - scatter_margin.right,
     scatter_height = scatter_width * 0.5 - scatter_margin.top - scatter_margin.bottom;
@@ -78,7 +78,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         .attr("x", 6)
         .attr("dy", "0.71em")
         .attr("text-anchor", "start")
-        .text("R&D since 2007 ($mil)");
+        .text("R&D since 2007 ($millions)");
 
     // Add points
     let scatterpoints = scatterChart.append("g").classed("circles", true)
@@ -121,7 +121,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         .append("text")
         .text("NTDs")
         .attr("class", "captions")
-        .attr("x", scatter_x(800))
+        .attr("x", scatter_x(700))
         .attr("y", scatter_y(2000))
         .style("font-family", "Futura-pt, sans-serif")
         .style("font-size", "100%")
