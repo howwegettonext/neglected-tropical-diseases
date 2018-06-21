@@ -99,7 +99,7 @@ d3.csv("data/bar.csv", function (error, data) {
         .attr("class", "bar_labels")
         .text((d) => bar_format_abbrv(d.total))
         .attr("x", (d) => bar_x(d.year) + (bar_x.bandwidth() / 2))
-        .attr("y", (d) => bar_y(d.total) - bar_width/50)
+        .attr("y", (d) => bar_y(d.total) - bar_width/40)
         .style("font-family", "Futura-pt, sans-serif")
         .style("font-size", "80%")
         .style("fill", "#f3f1ec")

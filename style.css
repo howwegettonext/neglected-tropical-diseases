@@ -135,7 +135,8 @@ p.cardtext {
 }
 
 .axis text {
-  fill: #f3f1ec;
+  fill: #f3f1ec;   
+  font: 14px futura-pt;
 }
 
 /* IMAGES */
