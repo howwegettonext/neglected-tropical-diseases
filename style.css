@@ -28,7 +28,7 @@ p {
 }
 
 a {
-    color: #E6AC27;
+    color: #E6AC27!important;
     text-decoration: none;
     transition: 200ms;
     transition-timing-function: ease-in-out;
@@ -37,7 +37,7 @@ a {
 }
 
 a:hover {
-  color: #cc9519;
+  color: #cc9519!important;
 }
 
 h2.cardtext {
