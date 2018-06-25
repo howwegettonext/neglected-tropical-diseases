@@ -10,7 +10,7 @@ let scatter_margin = {
         left: 40
     },
     scatter_width = parseInt(d3.select('#scatter').style('width'), 10) - scatter_margin.left - scatter_margin.right,
-    scatter_height = scatter_width * 0.5 - scatter_margin.top - scatter_margin.bottom;
+    scatter_height = scatter_width * 0.8 - scatter_margin.top - scatter_margin.bottom;
 
 // First we'll define our ascatter_xes
 let scatter_x = d3.scaleLog().range([0, scatter_width]);
@@ -103,7 +103,7 @@ d3.csv("data/scatter.csv", function (error, data) {
         .text((data) => data.disease)
         .attr("class", "captions")
         .attr("x", (data) => scatter_x(data.daly2015))
-        .attr("y", (data) => scatter_y(data.total) + 14)
+        .attr("y", (data) => scatter_y(data.total) + 18)
         .style("visibility", () => { //Breakpoint for caption visibility
             if (scatter_width > 700) {
                 return "visible";
@@ -112,7 +112,7 @@ d3.csv("data/scatter.csv", function (error, data) {
             }
         })
         .style("font-family", "Futura-pt, sans-serif")
-        .style("font-size", "70%")
+        .style("font-size", "75%")
         .style("fill", "#f3f1ec")
         .style("text-anchor", "left")
         .style("alignment-baseline", "middle");
@@ -146,7 +146,7 @@ d3.csv("data/scatter.csv", function (error, data) {
     scatterUpdate = function () {
         // Get new width and height
         scatter_width = parseInt(d3.select('#scatter').style('width'), 10) - scatter_margin.left - scatter_margin.right;
-        scatter_height = scatter_width * 0.5 - scatter_margin.top - scatter_margin.bottom;
+        scatter_height = scatter_width * 0.8 - scatter_margin.top - scatter_margin.bottom;
 
         // Resize SVG
         scatterSvg.attr("width", scatter_width + scatter_margin.left + scatter_margin.right)
