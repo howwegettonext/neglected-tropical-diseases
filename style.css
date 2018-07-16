@@ -249,6 +249,15 @@ img.wide.graphics {
   color: #4A4A4A;
 }
 
+.square {
+  width: 290px;
+  height: 290px;
+}
+
+h2.cardtext.forsquare {
+  padding-top: 18px;
+}
+
 /* OUTRO */
 
 
