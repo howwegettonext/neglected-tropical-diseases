@@ -22,6 +22,12 @@ h3 {
   font-size: 21px;
 }
 
+h4 {
+    color: #D60D2B;
+    font-size: 28px;
+    margin: 10px;
+}
+
 p {
   font-size: 18px;
   text-align: left;
@@ -147,7 +153,7 @@ p.cardtext {
 }
 
 .axis text {
-  fill: #f4eedf;   
+  fill: #f4eedf;
   font: 14px futura-pt;
 }
 
@@ -250,12 +256,49 @@ img.wide.graphics {
 }
 
 .square {
-  width: 290px;
-  height: 290px;
+  margin: 10px;
+  width: 270px;
+  height: 270px;
 }
 
-h2.cardtext.forsquare {
-  padding-top: 18px;
+.eradicated {
+    position: absolute;
+    background-color: white;
+    border: 7px solid #D60D2B;
+    left: 14%;
+    top: 46%;
+}
+.squaregrid {
+  // The content width you use on your website
+  --content-width: 80vw;
+
+  // The size of the gutter
+  --gutter: 40px;
+
+  // The amount of columns
+  --columns: 0;
+
+  display: grid;
+
+  // This is the calculation for the row height.
+  --row-size: calc(
+    ( var(--content-width) - (var(--gutter) * (var(--columns) - 1))
+    ) / var(--columns)
+  );
+
+  width: 100%;
+  max-width: var(--content-width);
+
+  grid-template-columns: repeat(var(--columns), 1fr);
+  grid-auto-rows: var(--row-size);
+
+  grid-column-gap: var(--gutter);
+  grid-row-gap: var(--gutter);
+
+}
+
+#animation {
+    background-color: #6B594F;
 }
 
 /* OUTRO */
@@ -413,5 +456,25 @@ a svg:hover .social {
     width: 100vw;
     margin-left: -50vw;
     left: 50%;
+  }
+}
+
+// This is again demo. Just decide with media queries when to add another column
+
+@media (min-width: 450px){
+  .squaregrid{
+    --columns: 2;
+  }
+}
+
+@media (min-width: 620px){
+  .squaregrid{
+    --columns: 2;
+  }
+}
+
+@media (min-width: 950px){
+  .squaregrid{
+    --columns: 3;
   }
 }
