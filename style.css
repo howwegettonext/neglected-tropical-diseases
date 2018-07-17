@@ -265,6 +265,7 @@ img.wide.graphics {
     position: absolute;
     background-color: white;
     border: 7px solid #D60D2B;
+    border-radius: 15px;
     left: 14%;
     top: 46%;
 }
