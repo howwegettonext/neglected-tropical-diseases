@@ -297,10 +297,7 @@ img.wide.graphics {
   grid-column-gap: var(--gutter);
   grid-row-gap: var(--gutter);
 
-}
-
-#animation {
-    background-color: #6B594F;
+  justify-items: center;
 }
 
 /* OUTRO */
@@ -461,22 +458,23 @@ a svg:hover .social {
   }
 }
 
-@media (min-width: 450px){
+@media (min-width: 650px){
   .squaregrid{
     --columns: 2;
-    grid-auto-rows: var(--row-size);
-    height: auto;
+    height: 390px;
   }
 }
 
-@media (min-width: 620px){
+/* @media (min-width: 620px){
   .squaregrid{
     --columns: 2;
   }
-}
+} */
 
 @media (min-width: 950px){
   .squaregrid{
     --columns: 3;
+    grid-auto-rows: var(--row-size);
+    height: auto;
   }
 }
