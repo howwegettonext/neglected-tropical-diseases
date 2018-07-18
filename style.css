@@ -465,12 +465,6 @@ a svg:hover .social {
   }
 }
 
-/* @media (min-width: 620px){
-  .squaregrid{
-    --columns: 2;
-  }
-} */
-
 @media (min-width: 950px){
   .squaregrid{
     --columns: 3;
